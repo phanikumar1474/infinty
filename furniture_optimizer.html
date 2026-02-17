@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>🛋 Furniture Optimizer</h2>
+    <p>Upload your room photo and get AI layout optimization.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <input type="text" name="room_type"
+               placeholder="Room Type"
+               class="form-control mb-2" required>
+
+        <input type="text" name="room_size"
+               placeholder="Room Size"
+               class="form-control mb-2" required>
+
+        <input type="text" name="furniture"
+               placeholder="Furniture items"
+               class="form-control mb-2" required>
+
+        <input type="file" name="room_image"
+               class="form-control mb-2">
+
+        <button class="btn btn-primary">Optimize Layout</button>
+    </form>
+
+    {% if suggestions %}
+    <div class="mt-4">
+        <h4>✨ Suggestions</h4>
+        {% for s in suggestions %}
+        <div class="card p-3 mb-2">{{ s }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% if optimized_image %}
+<div class="mt-4">
+    <h4>🧠 AI Visual Layout</h4>
+    <img src="/{{ optimized_image }}"
+         class="img-fluid rounded shadow">
+</div>
+{% endif %}
+
+
+{% endblock %}

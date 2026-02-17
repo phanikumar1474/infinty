@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width:1200px;margin:auto;padding:25px;">
+
+    <h2>Budget Planner</h2>
+    <p style="color:#aaa;">
+        Smart budget allocation using AI recommendations.
+    </p>
+
+    <div style="background:#111936;padding:20px;border-radius:12px;">
+
+        <form method="POST">
+
+            <label>Total Budget (₹):</label><br>
+            <input type="number" name="total_budget" required
+                   style="width:100%;padding:10px;margin-top:5px;margin-bottom:15px;
+                          background:#0f1530;color:white;border:1px solid #2b3b75;border-radius:8px;">
+
+            <button type="submit"
+                style="padding:10px 20px;
+                       background:#4f7cff;
+                       color:white;
+                       border:none;
+                       border-radius:8px;">
+                Generate Plan
+            </button>
+        </form>
+
+        {% if budget_result %}
+        <div style="margin-top:20px;">
+            <h4>Recommended Allocation</h4>
+
+            {% for item, amount in budget_result.items() %}
+            <div class="budget-row">
+                <div class="budget-label">
+                    {{ item }} — ₹ {{ amount }}
+                </div>
+
+                <div class="budget-bar-container">
+                    <div class="budget-bar"
+                         style="width: {{ (amount / budget_result.values()|sum * 100) }}%;">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

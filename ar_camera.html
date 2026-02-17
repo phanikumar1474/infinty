@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live AR Camera</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0b1026;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 15px;
+            margin: 0;
+            color: #9b8cff;
+        }
+
+        .camera-container {
+            position: relative;
+            width: 90%;
+            max-width: 850px;
+            margin: 20px auto;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 12px;
+            background: black;
+            display: block;
+        }
+
+        /* AR overlay */
+        .ar-box {
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            width: 70%;
+            height: 50%;
+            border: 2px dashed #4f7cff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(79,124,255,0.7);
+            pointer-events: none;
+        }
+
+        .ai-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Live AR Camera</h2>
+
+    <div class="camera-container">
+
+        <!-- CAMERA FEED -->
+        <video id="cameraFeed" autoplay playsinline></video>
+
+        <!-- FAKE AR DETECTION BOX -->
+        <div class="ar-box"></div>
+
+        <!-- AI STATUS -->
+        <div class="ai-label">🤖 AI Room Analysis Active</div>
+
+    </div>
+
+    <script>
+        window.onload = async function () {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: false
+                });
+
+                document.getElementById("cameraFeed").srcObject = stream;
+            } catch (err) {
+                alert("Camera access not allowed or unavailable.");
+                console.error(err);
+            }
+        };
+    </script>
+
+</body>
+</html>

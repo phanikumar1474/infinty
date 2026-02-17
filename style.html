@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width:1200px;margin:auto;padding:25px;">
+
+    <h2>Style Suggester</h2>
+    <p style="color:#aaa;">
+        Get personalized style recommendations based on your preferences and trends.
+    </p>
+
+    <div style="background:#111936;padding:20px;border-radius:12px;">
+
+        <form method="POST">
+
+            <label>Preferred Style:</label><br>
+            <select name="style" style="width:100%;padding:8px;margin-top:5px;margin-bottom:15px;">
+                <option>Modern</option>
+                <option>Minimal</option>
+                <option>Traditional</option>
+                <option>Luxury</option>
+                <option>Bohemian</option>
+            </select>
+
+            <button type="submit"
+                style="padding:10px 20px;
+                       background:#4f7cff;
+                       color:white;
+                       border:none;
+                       border-radius:8px;">
+                Get Personalized Suggestions
+            </button>
+        </form>
+
+      {% if style_suggestions %}
+<div style="margin-top:20px;">
+    <h4 style="margin-bottom:15px;">Personalized Style Recommendations</h4>
+
+    <div class="suggestion-grid">
+        {% for s in style_suggestions %}
+        <div class="suggestion-card">
+            {{ s }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}

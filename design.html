@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width:1200px;margin:auto;padding:25px;">
+
+    <h2>AI Room Analyzer</h2>
+    <p style="color:#aaa;">
+        Upload a photo and our AI extracts dimensions,
+        lighting, and structural features automatically.
+    </p>
+
+    <div style="background:#111936;padding:20px;border-radius:12px;">
+        <form method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="room_image" required>
+            <br><br>
+
+            <button type="submit"
+                style="padding:10px 20px;
+                       background:#4f7cff;
+                       color:white;
+                       border:none;
+                       border-radius:8px;">
+                Analyze Room
+            </button>
+        </form>
+    </div>
+
+    {% if uploaded_image %}
+    <div style="margin-top:20px;background:#111936;padding:20px;border-radius:12px;">
+        <h3>Uploaded Room</h3>
+        <img src="/{{ uploaded_image }}" style="width:100%;max-width:900px;border-radius:10px;">
+    </div>
+    {% endif %}
+
+    {% if result %}
+    <div style="margin-top:20px;background:#111936;padding:20px;border-radius:12px;">
+        <h3>AI Analysis Report</h3>
+        <pre style="white-space:pre-wrap;line-height:1.7;">{{ result }}</pre>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

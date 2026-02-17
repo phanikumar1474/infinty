@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Buddy Bookings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="booking-page">
+    <h2>🤖 AI Interior Consultation</h2>
+    <p>Talk to AI Buddy to book your consultation</p>
+
+    <div class="booking-card">
+
+        <form class="booking-form" id="bookingForm">
+            <input id="nameInput" type="text" placeholder="Your Name" required>
+            <input id="emailInput" type="email" placeholder="Email Address" required>
+
+            <select id="languageSelect">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Telugu</option>
+            </select>
+
+            <select id="roomSelect">
+                <option>Living Room</option>
+                <option>Bedroom</option>
+                <option>Kitchen</option>
+                <option>Office</option>
+            </select>
+
+            <input type="date" required>
+
+            <button type="submit">Book Consultation</button>
+        </form>
+
+        <p id="statusText">🎤 Click Buddy to speak</p>
+
+    </div>
+</div>
+
+<!-- AI Buddy -->
+<div id="aiBuddy">🤖</div>
+
+<script>
+const buddy = document.getElementById("aiBuddy");
+const statusText = document.getElementById("statusText");
+
+const nameInput = document.getElementById("nameInput");
+const emailInput = document.getElementById("emailInput");
+
+const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+recognition.continuous = false;
+recognition.interimResults = false;
+
+// multilingual support
+recognition.lang = "en-IN";
+
+function speak(text){
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = "en-IN";
+    speechSynthesis.speak(msg);
+}
+
+// Start listening when buddy clicked
+buddy.onclick = () => {
+
+    statusText.innerText = "🎧 Listening...";
+    speak("Hello! I am your AI Buddy. Please tell me your details.");
+
+    recognition.start();
+};
+
+// Voice result
+recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript.toLowerCase();
+
+    statusText.innerText = "You said: " + transcript;
+
+    // simple smart parsing
+    if(transcript.includes("name")) {
+        let name = transcript.replace("my name is","").replace("name is","");
+        nameInput.value = name.trim();
+        speak("Got it. Name updated.");
+    }
+
+    if(transcript.includes("@")) {
+        emailInput.value = transcript.replace("at","@").replace(" ","");
+        speak("Email updated.");
+    }
+
+    if(transcript.includes("bedroom")) {
+        document.getElementById("roomSelect").value = "Bedroom";
+    }
+
+    if(transcript.includes("kitchen")) {
+        document.getElementById("roomSelect").value = "Kitchen";
+    }
+
+    if(transcript.includes("living")) {
+        document.getElementById("roomSelect").value = "Living Room";
+    }
+
+    if(transcript.includes("office")) {
+        document.getElementById("roomSelect").value = "Office";
+    }
+
+    speak("You can now confirm your booking.");
+};
+
+recognition.onerror = () => {
+    statusText.innerText = "⚠️ Could not hear clearly.";
+};
+
+// Booking submit
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    speak("Your consultation has been booked successfully.");
+    alert("✅ Booking Confirmed by AI Buddy!");
+});
+</script>
+
+</body>
+</html>
+
+<script>
+    buddy.style.animation = "none";
+setTimeout(() => {
+    buddy.style.animation = "pulseBuddy 2s infinite";
+}, 100);
+
+</script>
+
+<style>
+/* ===============================
+   BOOKINGS PAGE - AI BUDDY STYLE
+=============================== */
+
+body {
+    background: radial-gradient(circle at top left, #1a1f4d, #0b1026 60%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: white;
+    margin: 0;
+}
+
+.booking-page {
+    max-width: 650px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.booking-page h2 {
+    color: #9b8cff;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.booking-page p {
+    opacity: 0.85;
+}
+
+/* Card */
+.booking-card {
+    margin-top: 20px;
+    background: rgba(21, 28, 58, 0.9);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+}
+
+/* Form */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.booking-form input,
+.booking-form select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #2b3b75;
+    background: #0f1530;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+    border-color: #4f7cff;
+    box-shadow: 0 0 8px rgba(79,124,255,0.4);
+}
+
+/* Button */
+.booking-form button {
+    margin-top: 5px;
+    background: linear-gradient(90deg,#6a7bff,#a66cff);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.booking-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(106,123,255,0.4);
+}
+
+/* Status text */
+#statusText {
+    margin-top: 14px;
+    color: #8fa8ff;
+    font-size: 14px;
+}
+
+/* AI Buddy Floating Button */
+#aiBuddy {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(90deg,#6a7bff,#a66cff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: 0.2s;
+    animation: pulseBuddy 2s infinite;
+}
+
+#aiBuddy:hover {
+    transform: scale(1.08);
+}
+
+/* Pulse animation */
+@keyframes pulseBuddy {
+    0%   { box-shadow: 0 0 0 0 rgba(106,123,255,0.5);}
+    70%  { box-shadow: 0 0 0 15px rgba(106,123,255,0);}
+    100% { box-shadow: 0 0 0 0 rgba(106,123,255,0);}
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .booking-page {
+        margin: 20px;
+    }
+
+    .booking-page h2 {
+        font-size: 26px;
+    }
+}
+</style>

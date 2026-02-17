@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="auth-wrapper">
+
+    <div class="auth-card">
+        <h2>Create Account</h2>
+
+        {% if result %}
+        <p style="color:#ff8080;">{{ result }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+            <!-- Username -->
+            <div class="input-group">
+                <input name="username" placeholder="Username" required>
+            </div>
+
+            <!-- Email -->
+            <div class="input-group">
+                <input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    title="Example: user@email.com">
+            </div>
+
+            <!-- Password -->
+            <div class="input-group">
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}"
+                    title="Minimum 8 characters, at least 1 letter and 1 number">
+
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="auth-link">
+            Already have an account?
+            <a href="/login">Login</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+{% endblock %}

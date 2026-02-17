@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Transform Your Space with<br>AI</h1>
+    <p>Personalized interior designs powered by intelligent agents</p>
+
+    <div class="hero-buttons">
+        <button id="scrollBtn">Start Designing</button>
+        <a href="/gallery">
+    <button class="secondary">Learn More</button>
+</a>
+
+    </div>
+</section>
+
+<!-- TOOLS SECTION -->
+<section class="tools" id="tools">
+    <h2>Intelligent Design Tools</h2>
+
+    <div class="tools-grid">
+
+        <!-- Room Analyzer -->
+        <div class="tool-card">
+            <div class="icon">📷</div>
+            <h3>Room Analyzer</h3>
+            <p>Upload a photo and our AI extracts dimensions, lighting, and structural features automatically.</p>
+            <a href="/design">Try Now →</a>
+        </div>
+
+        <!-- Style Suggester -->
+        <div class="tool-card">
+            <div class="icon">🎨</div>
+            <h3>Style Suggester</h3>
+            <p>Get personalized style recommendations based on your preferences and trends.</p>
+            <a href="/style">Explore Styles →</a>
+        </div>
+
+<!-- ================= 3D VISUALIZATION ================= -->
+<div class="feature-card">
+
+    <h3>3D Visualization</h3>
+    <p>
+        Preview your room in realistic 3D and AR before making any
+        changes or purchases.
+    </p>
+
+    <a href="/demo3d" class="demo-link">View Demo →</a>
+
+</div>
+<!-- ==================================================== -->
+
+
+        <!-- Furniture Optimizer -->
+        <div class="tool-card">
+            <div class="icon">🛋️</div>
+            <h3>Furniture Optimizer</h3>
+            <p>Optimal furniture placement suggestions for maximum space efficiency and aesthetics.</p>
+            <a href="{{ url_for('furniture_optimizer') }}">Optimize →</a>
+        </div>
+
+<!-- ================= BUDGET PLANNER ================= -->
+<div class="feature-card">
+
+    <h3>Budget Planner</h3>
+    <p>
+        Smart budget allocation using AI recommendations and booking workflow.
+    </p>
+
+    <a href="/budget" class="demo-link">Plan Budget →</a>
+
+</div>
+<!-- ================================================== -->
+
+
+        <!-- Live AR Camera -->
+        <div class="tool-card">
+            <div class="icon">📹</div>
+            <h3>Live AR Camera</h3>
+            <p>Use device camera for real-time room analysis and AI suggestions.</p>
+            <a href="/ar_camera">Try AR →</a>
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+document.getElementById("scrollBtn").addEventListener("click", function () {
+
+    const section = document.getElementById("tools");
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+});
+</script>
+
+{% endblock %}

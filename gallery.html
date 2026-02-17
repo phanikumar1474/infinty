@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📂 My Design Gallery</h2>
+
+<div class="furniture-grid">
+    {% for d in designs %}
+    <div class="furniture-card">
+        <img src="/{{ d.image_path }}" width="180"><br><br>
+        <b>{{ d.style }}</b>
+        <p style="font-size:13px;">{{ d.ai_output[:100] }}...</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if designs|length == 0 %}
+<p>No designs yet. Create one from Design page.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="auth-wrapper">
+
+    <div class="auth-card">
+        <h2>Login</h2>
+
+        {% if result %}
+        <p style="color:#ff8080;">{{ result }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+            <!-- Email -->
+            <div class="input-group">
+                <input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            </div>
+
+            <!-- Password -->
+            <div class="input-group">
+                <input id="password"
+                       name="password"
+                       type="password"
+                       placeholder="Password"
+                       required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="auth-link">
+            Don’t have an account?
+            <a href="/register">Register</a>
+        </p>
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+{% endblock %}

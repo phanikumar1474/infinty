@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width:1200px;margin:auto;padding:25px;">
+
+    <h2>3D Visualization Demo</h2>
+    <p style="color:#aaa;">
+        Preview your room in realistic 3D and AR before making any
+        changes or purchases.
+    </p>
+
+    <div style="
+        margin-top:20px;
+        background:#111936;
+        padding:20px;
+        border-radius:12px;
+        text-align:center;
+    ">
+
+        <h3 style="margin-bottom:15px;">Interactive Preview (Demo)</h3>
+
+        <!-- Placeholder demo image -->
+        <img src="{{ url_for('static', filename='images/3d-demo.jpg') }}"
+             style="width:100%;max-width:900px;border-radius:10px;">
+
+        <p style="margin-top:15px;color:#bbb;">
+            🚀 Full interactive 3D & AR experience coming soon.
+        </p>
+        <div class="fake-3d-viewer">
+
+    <div class="room-cube">
+        <div class="face front">3D Room Preview</div>
+        <div class="face back"></div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+    </div>
+
+</div>
+
+<p style="margin-top:15px;color:#bbb;">
+    🚀 Interactive 3D & AR simulation preview.
+</p>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
